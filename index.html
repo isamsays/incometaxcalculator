@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pakistan Income Tax Calculator 2024-25 | Calculate Your Tax Instantly Online</title>
-    <meta name="description" content="Use our advanced Pakistan income tax calculator to calculate your tax liability for 2024-25. Get detailed breakdowns, tax-saving tips, and accurate calculations based on current FBR slabs.">
-    <meta name="keywords" content="pakistan income tax calculator, income tax calculator pakistan, pakistan tax calculator, calculate income tax pakistan, income tax pakistan calculator">
+    <title>Pakistan Income Tax Calculator 2024-25 | Advanced Tax Calculator</title>
+    <meta name="description" content="Calculate your income tax in Pakistan with our advanced calculator. Supports all tax categories, deductions, and provides detailed breakdowns for FY 2024-25.">
     <style>
         * {
             margin: 0;
@@ -16,16 +14,17 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 20px;
+            color: #333;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             overflow: hidden;
@@ -70,57 +69,11 @@
             z-index: 1;
         }
 
-        .nav-tabs {
-            background: #f8f9fa;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            border-bottom: 3px solid #3e7b3e;
-        }
-
-        .nav-tab {
-            flex: 1;
-            background: #e9ecef;
-            border: none;
-            padding: 15px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #333;
-        }
-
-        .nav-tab.active {
-            background: #3e7b3e;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .nav-tab:hover {
-            background: #495057;
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 30px;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .calculator-grid {
+        .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-bottom: 30px;
+            padding: 30px;
         }
 
         .calculator-section, .results-section {
@@ -328,6 +281,7 @@
         }
 
         .tips-section {
+            grid-column: 1 / -1;
             background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
             border-radius: 15px;
             padding: 25px;
@@ -358,90 +312,24 @@
             margin-bottom: 10px;
         }
 
-        /* Article Styles */
-        .article-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
 
-        .article-content h1 {
-            color: #2c5530;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 3px solid #3e7b3e;
-            padding-bottom: 15px;
-        }
+            .header h1 {
+                font-size: 2rem;
+            }
 
-        .article-content h2 {
-            color: #2c5530;
-            font-size: 1.8rem;
-            margin: 30px 0 15px 0;
-            border-left: 4px solid #3e7b3e;
-            padding-left: 15px;
-        }
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
 
-        .article-content h3 {
-            color: #3e7b3e;
-            font-size: 1.4rem;
-            margin: 25px 0 10px 0;
-        }
-
-        .article-content p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-
-        .article-content ul {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-
-        .article-content li {
-            margin-bottom: 8px;
-        }
-
-        .key-takeaways {
-            background: #e8f5e8;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #3e7b3e;
-        }
-
-        .key-takeaways h3 {
-            color: #2c5530;
-            margin-bottom: 15px;
-        }
-
-        .faq-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-        }
-
-        .faq-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .faq-question {
-            font-weight: 600;
-            color: #2c5530;
-            margin-bottom: 10px;
-        }
-
-        .faq-answer {
-            color: #555;
-            line-height: 1.6;
+            .result-amount {
+                font-size: 1.8rem;
+            }
         }
 
         .loading {
@@ -484,248 +372,140 @@
             border-left: 4px solid #3e7b3e;
             display: none;
         }
-
-        .anchor-link {
-            color: #3e7b3e;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .anchor-link:hover {
-            border-bottom-color: #3e7b3e;
-            color: #2c5530;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 15px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header p {
-                font-size: 1rem;
-            }
-
-            .nav-tabs {
-                flex-direction: column;
-            }
-
-            .nav-tab {
-                margin-bottom: 2px;
-            }
-
-            .calculator-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .tab-content {
-                padding: 20px;
-            }
-
-            .checkbox-group {
-                grid-template-columns: 1fr;
-            }
-
-            .result-amount {
-                font-size: 1.8rem;
-            }
-
-            .tips-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .article-content {
-                padding: 15px;
-                margin: 10px;
-            }
-
-            .article-content h1 {
-                font-size: 2rem;
-            }
-
-            .article-content h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 20px 15px;
-            }
-
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .tab-content {
-                padding: 15px;
-            }
-
-            .calculator-section, .results-section {
-                padding: 20px;
-            }
-
-            .article-content h1 {
-                font-size: 1.8rem;
-            }
-
-            .article-content h2 {
-                font-size: 1.3rem;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🇵🇰 Pakistan Income Tax Calculator</h1>
-            <p>Complete Tax Solution with Expert Guide | Tax Year 2024-25</p>
+            <p>Tax Year 2024-25 | Advanced Calculator with Detailed Breakdown</p>
         </div>
 
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab('calculator')">
-                🧮 Tax Calculator
-            </button>
-            <button class="nav-tab" onclick="showTab('guide')">
-                📖 Complete Guide
-            </button>
-        </div>
+        <div class="main-content">
+            <div class="calculator-section">
+                <h2 class="section-title">📊 Income & Tax Details</h2>
+                
+                <div class="form-group">
+                    <label for="taxYear">Tax Year</label>
+                    <select id="taxYear">
+                        <option value="2024-25">2024-25</option>
+                        <option value="2023-24">2023-24</option>
+                    </select>
+                </div>
 
-        <!-- Calculator Tab -->
-        <div id="calculator" class="tab-content active">
-            <div class="calculator-grid">
-                <div class="calculator-section">
-                    <h2 class="section-title">📊 Income & Tax Details</h2>
-                    
-                    <div class="form-group">
-                        <label for="taxYear">Tax Year</label>
-                        <select id="taxYear">
-                            <option value="2024-25">2024-25</option>
-                            <option value="2023-24">2023-24</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="taxpayerStatus">Taxpayer Status</label>
+                    <select id="taxpayerStatus">
+                        <option value="individual">Individual</option>
+                        <option value="aop">Association of Persons (AOP)</option>
+                        <option value="company">Company</option>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <label for="taxpayerStatus">Taxpayer Status</label>
-                        <select id="taxpayerStatus">
-                            <option value="individual">Individual</option>
-                            <option value="aop">Association of Persons (AOP)</option>
-                            <option value="company">Company</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="gender">Gender (for Individual)</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <label for="gender">Gender (for Individual)</label>
-                        <select id="gender">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Enter your age" min="18" max="100">
+                </div>
 
-                    <div class="form-group">
-                        <label for="age">Age</label>
-                        <input type="number" id="age" placeholder="Enter your age" min="18" max="100">
-                    </div>
+                <div class="form-group">
+                    <label for="annualIncome">Annual Income (PKR)</label>
+                    <input type="number" id="annualIncome" placeholder="Enter your annual income" min="0">
+                </div>
 
-                    <div class="form-group">
-                        <label for="annualIncome">Annual Income (PKR)</label>
-                        <input type="number" id="annualIncome" placeholder="Enter your annual income" min="0">
-                    </div>
-
-                    <div class="form-group">
-                        <label>💰 Income Sources & Deductions</label>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="salary" checked>
-                                <label for="salary">Salary Income</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="business">
-                                <label for="business">Business Income</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="property">
-                                <label for="property">Property Income</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="investments">
-                                <label for="investments">Investment Income</label>
-                            </div>
+                <div class="form-group">
+                    <label>💰 Income Sources & Deductions</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="salary" checked>
+                            <label for="salary">Salary Income</label>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="deductions">Total Deductions (PKR)</label>
-                        <input type="number" id="deductions" placeholder="Medical, donations, etc." min="0" value="0">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="previousTax">Tax Already Paid (PKR)</label>
-                        <input type="number" id="previousTax" placeholder="Advance tax, withholding tax" min="0" value="0">
-                    </div>
-
-                    <div class="error-message" id="errorMessage"></div>
-                    <div class="success-message" id="successMessage"></div>
-
-                    <button class="calculate-btn" onclick="calculateTax()">
-                        🧮 Calculate Income Tax
-                    </button>
-
-                    <div class="loading" id="loading">
-                        <div class="spinner"></div>
-                        <p>Calculating your tax...</p>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="business">
+                            <label for="business">Business Income</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="property">
+                            <label for="property">Property Income</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="investments">
+                            <label for="investments">Investment Income</label>
+                        </div>
                     </div>
                 </div>
 
-                <div class="results-section">
-                    <h2 class="section-title">📈 Tax Calculation Results</h2>
-                    
-                    <div id="results" style="display: none;">
-                        <div class="result-card">
-                            <div class="result-amount" id="totalTax">PKR 0</div>
-                            <div class="result-label">Total Income Tax</div>
-                        </div>
+                <div class="form-group">
+                    <label for="deductions">Total Deductions (PKR)</label>
+                    <input type="number" id="deductions" placeholder="Medical, donations, etc." min="0" value="0">
+                </div>
 
-                        <div class="result-card">
-                            <div class="result-amount" id="netIncome">PKR 0</div>
-                            <div class="result-label">Net Income After Tax</div>
-                        </div>
+                <div class="form-group">
+                    <label for="previousTax">Tax Already Paid (PKR)</label>
+                    <input type="number" id="previousTax" placeholder="Advance tax, withholding tax" min="0" value="0">
+                </div>
 
-                        <div class="result-card">
-                            <div class="result-amount" id="effectiveRate">0%</div>
-                            <div class="result-label">Effective Tax Rate</div>
-                        </div>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
 
-                        <table class="breakdown-table">
-                            <thead>
-                                <tr>
-                                    <th>Tax Slab</th>
-                                    <th>Taxable Amount</th>
-                                    <th>Rate</th>
-                                    <th>Tax</th>
-                                </tr>
-                            </thead>
-                            <tbody id="breakdownTable">
-                            </tbody>
-                        </table>
+                <button class="calculate-btn" onclick="calculateTax()">
+                    🧮 Calculate Income Tax
+                </button>
 
-                        <div class="result-card">
-                            <div class="result-amount" id="refundDue">PKR 0</div>
-                            <div class="result-label" id="refundLabel">Amount Due/Refund</div>
-                        </div>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Calculating your tax...</p>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2 class="section-title">📈 Tax Calculation Results</h2>
+                
+                <div id="results" style="display: none;">
+                    <div class="result-card">
+                        <div class="result-amount" id="totalTax">PKR 0</div>
+                        <div class="result-label">Total Income Tax</div>
                     </div>
 
-                    <div class="tax-slabs">
-                        <h3>💡 Current Tax Slabs (2024-25)</h3>
-                        <div id="taxSlabsDisplay"></div>
+                    <div class="result-card">
+                        <div class="result-amount" id="netIncome">PKR 0</div>
+                        <div class="result-label">Net Income After Tax</div>
                     </div>
+
+                    <div class="result-card">
+                        <div class="result-amount" id="effectiveRate">0%</div>
+                        <div class="result-label">Effective Tax Rate</div>
+                    </div>
+
+                    <table class="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Tax Slab</th>
+                                <th>Taxable Amount</th>
+                                <th>Rate</th>
+                                <th>Tax</th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdownTable">
+                        </tbody>
+                    </table>
+
+                    <div class="result-card">
+                        <div class="result-amount" id="refundDue">PKR 0</div>
+                        <div class="result-label" id="refundLabel">Amount Due/Refund</div>
+                    </div>
+                </div>
+
+                <div class="tax-slabs">
+                    <h3>💡 Current Tax Slabs (2024-25)</h3>
+                    <div id="taxSlabsDisplay"></div>
                 </div>
             </div>
 
@@ -759,118 +539,241 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Guide Tab -->
-        <div id="guide" class="tab-content">
-            <div class="article-content">
-                <h1>Pakistan Income Tax Calculator: Your Ultimate Guide to Smart Tax Planning in 2024-25</h1>
+    <script>
+        // Tax slabs for different years and categories
+        const taxSlabs = {
+            '2024-25': {
+                individual: {
+                    male: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 2.5 },
+                        { min: 1200001, max: 2400000, rate: 12.5 },
+                        { min: 2400001, max: 3600000, rate: 20 },
+                        { min: 3600001, max: 6000000, rate: 25 },
+                        { min: 6000001, max: Infinity, rate: 32.5 }
+                    ],
+                    female: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 2.5 },
+                        { min: 1200001, max: 2400000, rate: 12.5 },
+                        { min: 2400001, max: 3600000, rate: 20 },
+                        { min: 3600001, max: 6000000, rate: 25 },
+                        { min: 6000001, max: Infinity, rate: 32.5 }
+                    ]
+                }
+            },
+            '2023-24': {
+                individual: {
+                    male: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 5 },
+                        { min: 1200001, max: 2400000, rate: 15 },
+                        { min: 2400001, max: 3600000, rate: 25 },
+                        { min: 3600001, max: 6000000, rate: 30 },
+                        { min: 6000001, max: Infinity, rate: 35 }
+                    ],
+                    female: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 5 },
+                        { min: 1200001, max: 2400000, rate: 15 },
+                        { min: 2400001, max: 3600000, rate: 25 },
+                        { min: 3600001, max: 6000000, rate: 30 },
+                        { min: 6000001, max: Infinity, rate: 35 }
+                    ]
+                }
+            }
+        };
 
-                <h2>Introduction</h2>
-                <p>Navigating Pakistan's income tax system doesn't have to be overwhelming! Whether you're a salaried employee, business owner, or freelancer, understanding your tax obligations is crucial for financial planning. With the latest updates in Pakistan's tax structure for 2024-25, having access to a reliable <a href="#" class="anchor-link">income tax calculator Pakistan</a> tool can save you time, money, and stress.</p>
+        function displayTaxSlabs() {
+            const year = document.getElementById('taxYear').value;
+            const gender = document.getElementById('gender').value;
+            const slabs = taxSlabs[year].individual[gender];
+            
+            const container = document.getElementById('taxSlabsDisplay');
+            container.innerHTML = '';
+            
+            slabs.forEach(slab => {
+                const slabItem = document.createElement('div');
+                slabItem.className = 'slab-item';
+                
+                const range = slab.max === Infinity ? 
+                    `Above PKR ${slab.min.toLocaleString()}` : 
+                    `PKR ${slab.min.toLocaleString()} - ${slab.max.toLocaleString()}`;
+                
+                slabItem.innerHTML = `
+                    <span>${range}</span>
+                    <span><strong>${slab.rate}%</strong></span>
+                `;
+                container.appendChild(slabItem);
+            });
+        }
 
-                <p>Gone are the days of manual calculations and confusing tax tables. Modern <a href="#" class="anchor-link">pakistan income tax calculator</a> tools provide instant, accurate results that help you plan your finances better and ensure compliance with FBR regulations. Let's explore everything you need to know about calculating your income tax in Pakistan.</p>
+        function validateInputs() {
+            const income = parseFloat(document.getElementById('annualIncome').value);
+            const age = parseInt(document.getElementById('age').value);
+            
+            if (!income || income < 0) {
+                showError('Please enter a valid annual income');
+                return false;
+            }
+            
+            if (!age || age < 18 || age > 100) {
+                showError('Please enter a valid age between 18 and 100');
+                return false;
+            }
+            
+            return true;
+        }
 
-                <h2>Understanding Pakistan's Income Tax Structure</h2>
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
 
-                <h3>Current Tax Slabs for 2024-25</h3>
-                <p>Pakistan's income tax system operates on a progressive structure, meaning higher earners pay higher rates. The <a href="#" class="anchor-link">income tax pakistan calculator</a> considers these current slabs:</p>
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
 
-                <ul>
-                    <li><strong>PKR 0 - 600,000:</strong> 0% tax rate</li>
-                    <li><strong>PKR 600,001 - 1,200,000:</strong> 2.5% tax rate</li>
-                    <li><strong>PKR 1,200,001 - 2,400,000:</strong> 12.5% tax rate</li>
-                    <li><strong>PKR 2,400,001 - 3,600,000:</strong> 20% tax rate</li>
-                    <li><strong>PKR 3,600,001 - 6,000,000:</strong> 25% tax rate</li>
-                    <li><strong>Above PKR 6,000,000:</strong> 32.5% tax rate</li>
-                </ul>
+        function calculateTax() {
+            if (!validateInputs()) return;
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            
+            setTimeout(() => {
+                performTaxCalculation();
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                showSuccess('Tax calculation completed successfully!');
+            }, 1500);
+        }
 
-                <h3>Who Needs to Calculate Income Tax?</h3>
-                <p>Every resident Pakistani earning above the exemption threshold must understand their tax liability. A <a href="#" class="anchor-link">pakistan tax calculator</a> is essential for:</p>
+        function performTaxCalculation() {
+            const year = document.getElementById('taxYear').value;
+            const gender = document.getElementById('gender').value;
+            const annualIncome = parseFloat(document.getElementById('annualIncome').value);
+            const deductions = parseFloat(document.getElementById('deductions').value) || 0;
+            const previousTax = parseFloat(document.getElementById('previousTax').value) || 0;
+            
+            const taxableIncome = Math.max(0, annualIncome - deductions);
+            const slabs = taxSlabs[year].individual[gender];
+            
+            let totalTax = 0;
+            let breakdown = [];
+            
+            for (let i = 0; i < slabs.length; i++) {
+                const slab = slabs[i];
+                const slabMin = slab.min;
+                const slabMax = slab.max === Infinity ? taxableIncome : Math.min(slab.max, taxableIncome);
+                
+                if (taxableIncome > slabMin) {
+                    const taxableInThisSlab = slabMax - slabMin;
+                    const taxInThisSlab = (taxableInThisSlab * slab.rate) / 100;
+                    
+                    if (taxableInThisSlab > 0) {
+                        totalTax += taxInThisSlab;
+                        breakdown.push({
+                            range: slab.max === Infinity ? 
+                                `Above ${slabMin.toLocaleString()}` : 
+                                `${slabMin.toLocaleString()} - ${slabMax.toLocaleString()}`,
+                            amount: taxableInThisSlab,
+                            rate: slab.rate,
+                            tax: taxInThisSlab
+                        });
+                    }
+                }
+                
+                if (taxableIncome <= slab.max) break;
+            }
+            
+            const netIncome = annualIncome - totalTax;
+            const effectiveRate = annualIncome > 0 ? (totalTax / annualIncome) * 100 : 0;
+            const amountDue = totalTax - previousTax;
+            
+            // Update results
+            document.getElementById('totalTax').textContent = `PKR ${Math.round(totalTax).toLocaleString()}`;
+            document.getElementById('netIncome').textContent = `PKR ${Math.round(netIncome).toLocaleString()}`;
+            document.getElementById('effectiveRate').textContent = `${effectiveRate.toFixed(2)}%`;
+            
+            const refundElement = document.getElementById('refundDue');
+            const refundLabel = document.getElementById('refundLabel');
+            
+            if (amountDue > 0) {
+                refundElement.textContent = `PKR ${Math.round(amountDue).toLocaleString()}`;
+                refundLabel.textContent = 'Additional Tax Due';
+                refundElement.parentElement.style.background = 'linear-gradient(135deg, #ff6b6b, #ee5a52)';
+            } else {
+                refundElement.textContent = `PKR ${Math.round(Math.abs(amountDue)).toLocaleString()}`;
+                refundLabel.textContent = 'Tax Refund Due';
+                refundElement.parentElement.style.background = 'linear-gradient(135deg, #51cf66, #40c057)';
+            }
+            
+            // Update breakdown table
+            const tableBody = document.getElementById('breakdownTable');
+            tableBody.innerHTML = '';
+            
+            breakdown.forEach(item => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${item.range}</td>
+                    <td>PKR ${Math.round(item.amount).toLocaleString()}</td>
+                    <td>${item.rate}%</td>
+                    <td>PKR ${Math.round(item.tax).toLocaleString()}</td>
+                `;
+            });
+            
+            // Add summary row
+            const summaryRow = tableBody.insertRow();
+            summaryRow.innerHTML = `
+                <td><strong>Total</strong></td>
+                <td><strong>PKR ${Math.round(taxableIncome).toLocaleString()}</strong></td>
+                <td><strong>-</strong></td>
+                <td><strong>PKR ${Math.round(totalTax).toLocaleString()}</strong></td>
+            `;
+            summaryRow.style.backgroundColor = '#f8f9fa';
+            summaryRow.style.fontWeight = 'bold';
+        }
 
-                <ul>
-                    <li>Salaried employees planning their annual finances</li>
-                    <li>Business owners calculating quarterly payments</li>
-                    <li>Freelancers managing irregular income</li>
-                    <li>Property investors with rental income</li>
-                    <li>Anyone wanting to optimize their tax planning</li>
-                </ul>
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            displayTaxSlabs();
+            
+            document.getElementById('taxYear').addEventListener('change', displayTaxSlabs);
+            document.getElementById('gender').addEventListener('change', displayTaxSlabs);
+            
+            // Add input formatting
+            const numberInputs = ['annualIncome', 'deductions', 'previousTax'];
+            numberInputs.forEach(id => {
+                const input = document.getElementById(id);
+                input.addEventListener('input', function() {
+                    // Remove non-numeric characters except decimal point
+                    this.value = this.value.replace(/[^0-9.]/g, '');
+                });
+            });
+        });
 
-                <h2>Benefits of Using an Online Income Tax Calculator</h2>
-
-                <h3>Instant and Accurate Results</h3>
-                <p>Modern <a href="#" class="anchor-link">income tax calculator in pakistan</a> tools provide immediate calculations based on current FBR rates. No more waiting for accountants or struggling with complex formulas – get your results in seconds!</p>
-
-                <h3>Comprehensive Deduction Tracking</h3>
-                <p>Advanced calculators help you <a href="#" class="anchor-link">calculate income tax pakistan</a> while considering:</p>
-
-                <ul>
-                    <li>Medical expenses (up to PKR 100,000)</li>
-                    <li>Educational expenses for children</li>
-                    <li>Charitable donations (up to 30% of income)</li>
-                    <li>House rent allowances</li>
-                    <li>Utility bill deductions</li>
-                    <li>Mobile and internet expenses</li>
-                </ul>
-
-                <h3>Tax Planning Made Simple</h3>
-                <p>By using a reliable <a href="#" class="anchor-link">calculate income tax pakistan</a> tool, you can:</p>
-
-                <ul>
-                    <li>Plan your investments strategically</li>
-                    <li>Optimize your salary structure</li>
-                    <li>Identify tax-saving opportunities</li>
-                    <li>Prepare for advance tax payments</li>
-                    <li>Avoid penalties and late fees</li>
-                </ul>
-
-                <h2>Key Features of Advanced Tax Calculators</h2>
-
-                <h3>Multiple Income Sources Support</h3>
-                <p>Professional calculators handle various income types:</p>
-
-                <ul>
-                    <li>Salary income with detailed breakdowns</li>
-                    <li>Business and professional income</li>
-                    <li>Property rental income</li>
-                    <li>Investment returns and capital gains</li>
-                    <li>Foreign income considerations</li>
-                </ul>
-
-                <h3>Deduction Optimization</h3>
-                <p>Smart calculators automatically suggest eligible deductions:</p>
-
-                <ul>
-                    <li>Standard deductions for salaried individuals</li>
-                    <li>Business expense deductions</li>
-                    <li>Investment-related deductions</li>
-                    <li>Family-dependent allowances</li>
-                </ul>
-
-                <h3>Comparative Analysis</h3>
-                <p>Advanced tools provide year-over-year comparisons, helping you understand how tax changes affect your finances.</p>
-
-                <h2>Step-by-Step Guide to Calculate Your Income Tax</h2>
-
-                <h3>1. Gather Your Financial Information</h3>
-                <p>Before using any tax calculator tool, collect:</p>
-
-                <ul>
-                    <li>Annual salary statements</li>
-                    <li>Business income records</li>
-                    <li>Investment income details</li>
-                    <li>Expense receipts for deductions</li>
-                    <li>Previous year's tax payments</li>
-                </ul>
-
-                <h3>2. Choose the Right Calculator</h3>
-                <p>Select a comprehensive tool that offers:</p>
-
-                <ul>
-                    <li>Current year tax slabs</li>
-                    <li>Multiple income source support</li>
-                    <li>Detailed breakdown features</li>
-                    <li>Mobile-friendly interface</li>
-                    <li>Reliable calculation algorithms</li>
-                </ul>
-
-                <h3>3
+        // Add some interactive animations
+        document.querySelectorAll('.form-group input, .form-group select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
