@@ -1,0 +1,780 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Income Tax Calculator 2024-25 | Advanced Tax Calculator</title>
+    <meta name="description" content="Calculate your income tax in Pakistan with our advanced calculator. Supports all tax categories, deductions, and provides detailed breakdowns for FY 2024-25.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2c5530, #3e7b3e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .calculator-section, .results-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .calculator-section:hover, .results-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #2c5530;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3e7b3e;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3e7b3e;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(62, 123, 62, 0.2);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #2c5530, #3e7b3e);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(44, 85, 48, 0.3);
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+            border-radius: 15px;
+            z-index: -1;
+            animation: borderAnimation 3s linear infinite;
+        }
+
+        @keyframes borderAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .result-amount {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .result-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .breakdown-table th {
+            background: #3e7b3e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .breakdown-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .breakdown-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .tax-slabs {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .tax-slabs h3 {
+            color: #2c5530;
+            margin-bottom: 15px;
+        }
+
+        .slab-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .slab-item:last-child {
+            border-bottom: none;
+        }
+
+        .tips-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card h4 {
+            color: #2c5530;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .result-amount {
+                font-size: 1.8rem;
+            }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3e7b3e;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #c62828;
+            display: none;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2c5530;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #3e7b3e;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇵🇰 Pakistan Income Tax Calculator</h1>
+            <p>Tax Year 2024-25 | Advanced Calculator with Detailed Breakdown</p>
+        </div>
+
+        <div class="main-content">
+            <div class="calculator-section">
+                <h2 class="section-title">📊 Income & Tax Details</h2>
+                
+                <div class="form-group">
+                    <label for="taxYear">Tax Year</label>
+                    <select id="taxYear">
+                        <option value="2024-25">2024-25</option>
+                        <option value="2023-24">2023-24</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="taxpayerStatus">Taxpayer Status</label>
+                    <select id="taxpayerStatus">
+                        <option value="individual">Individual</option>
+                        <option value="aop">Association of Persons (AOP)</option>
+                        <option value="company">Company</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender (for Individual)</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Enter your age" min="18" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="annualIncome">Annual Income (PKR)</label>
+                    <input type="number" id="annualIncome" placeholder="Enter your annual income" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>💰 Income Sources & Deductions</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="salary" checked>
+                            <label for="salary">Salary Income</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="business">
+                            <label for="business">Business Income</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="property">
+                            <label for="property">Property Income</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="investments">
+                            <label for="investments">Investment Income</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="deductions">Total Deductions (PKR)</label>
+                    <input type="number" id="deductions" placeholder="Medical, donations, etc." min="0" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="previousTax">Tax Already Paid (PKR)</label>
+                    <input type="number" id="previousTax" placeholder="Advance tax, withholding tax" min="0" value="0">
+                </div>
+
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+
+                <button class="calculate-btn" onclick="calculateTax()">
+                    🧮 Calculate Income Tax
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Calculating your tax...</p>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2 class="section-title">📈 Tax Calculation Results</h2>
+                
+                <div id="results" style="display: none;">
+                    <div class="result-card">
+                        <div class="result-amount" id="totalTax">PKR 0</div>
+                        <div class="result-label">Total Income Tax</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-amount" id="netIncome">PKR 0</div>
+                        <div class="result-label">Net Income After Tax</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-amount" id="effectiveRate">0%</div>
+                        <div class="result-label">Effective Tax Rate</div>
+                    </div>
+
+                    <table class="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Tax Slab</th>
+                                <th>Taxable Amount</th>
+                                <th>Rate</th>
+                                <th>Tax</th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdownTable">
+                        </tbody>
+                    </table>
+
+                    <div class="result-card">
+                        <div class="result-amount" id="refundDue">PKR 0</div>
+                        <div class="result-label" id="refundLabel">Amount Due/Refund</div>
+                    </div>
+                </div>
+
+                <div class="tax-slabs">
+                    <h3>💡 Current Tax Slabs (2024-25)</h3>
+                    <div id="taxSlabsDisplay"></div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h2 class="section-title">💡 Tax Saving Tips & Information</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>🏥 Medical Expenses</h4>
+                        <p>You can claim medical expenses up to PKR 100,000 or actual expenses, whichever is lower.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>🎓 Education Expenses</h4>
+                        <p>Tuition fees for up to 2 children are deductible from taxable income.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>💝 Donations</h4>
+                        <p>Donations to approved institutions are deductible up to 30% of taxable income.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>🏠 House Rent</h4>
+                        <p>House rent is deductible up to 45% of salary or actual rent, whichever is lower.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>⚡ Utility Bills</h4>
+                        <p>Utility bills up to PKR 100,000 annually are deductible for salaried individuals.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>📱 Mobile & Internet</h4>
+                        <p>Mobile and internet expenses up to PKR 25,000 annually are tax deductible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tax slabs for different years and categories
+        const taxSlabs = {
+            '2024-25': {
+                individual: {
+                    male: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 2.5 },
+                        { min: 1200001, max: 2400000, rate: 12.5 },
+                        { min: 2400001, max: 3600000, rate: 20 },
+                        { min: 3600001, max: 6000000, rate: 25 },
+                        { min: 6000001, max: Infinity, rate: 32.5 }
+                    ],
+                    female: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 2.5 },
+                        { min: 1200001, max: 2400000, rate: 12.5 },
+                        { min: 2400001, max: 3600000, rate: 20 },
+                        { min: 3600001, max: 6000000, rate: 25 },
+                        { min: 6000001, max: Infinity, rate: 32.5 }
+                    ]
+                }
+            },
+            '2023-24': {
+                individual: {
+                    male: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 5 },
+                        { min: 1200001, max: 2400000, rate: 15 },
+                        { min: 2400001, max: 3600000, rate: 25 },
+                        { min: 3600001, max: 6000000, rate: 30 },
+                        { min: 6000001, max: Infinity, rate: 35 }
+                    ],
+                    female: [
+                        { min: 0, max: 600000, rate: 0 },
+                        { min: 600001, max: 1200000, rate: 5 },
+                        { min: 1200001, max: 2400000, rate: 15 },
+                        { min: 2400001, max: 3600000, rate: 25 },
+                        { min: 3600001, max: 6000000, rate: 30 },
+                        { min: 6000001, max: Infinity, rate: 35 }
+                    ]
+                }
+            }
+        };
+
+        function displayTaxSlabs() {
+            const year = document.getElementById('taxYear').value;
+            const gender = document.getElementById('gender').value;
+            const slabs = taxSlabs[year].individual[gender];
+            
+            const container = document.getElementById('taxSlabsDisplay');
+            container.innerHTML = '';
+            
+            slabs.forEach(slab => {
+                const slabItem = document.createElement('div');
+                slabItem.className = 'slab-item';
+                
+                const range = slab.max === Infinity ? 
+                    `Above PKR ${slab.min.toLocaleString()}` : 
+                    `PKR ${slab.min.toLocaleString()} - ${slab.max.toLocaleString()}`;
+                
+                slabItem.innerHTML = `
+                    <span>${range}</span>
+                    <span><strong>${slab.rate}%</strong></span>
+                `;
+                container.appendChild(slabItem);
+            });
+        }
+
+        function validateInputs() {
+            const income = parseFloat(document.getElementById('annualIncome').value);
+            const age = parseInt(document.getElementById('age').value);
+            
+            if (!income || income < 0) {
+                showError('Please enter a valid annual income');
+                return false;
+            }
+            
+            if (!age || age < 18 || age > 100) {
+                showError('Please enter a valid age between 18 and 100');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function calculateTax() {
+            if (!validateInputs()) return;
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            
+            setTimeout(() => {
+                performTaxCalculation();
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                showSuccess('Tax calculation completed successfully!');
+            }, 1500);
+        }
+
+        function performTaxCalculation() {
+            const year = document.getElementById('taxYear').value;
+            const gender = document.getElementById('gender').value;
+            const annualIncome = parseFloat(document.getElementById('annualIncome').value);
+            const deductions = parseFloat(document.getElementById('deductions').value) || 0;
+            const previousTax = parseFloat(document.getElementById('previousTax').value) || 0;
+            
+            const taxableIncome = Math.max(0, annualIncome - deductions);
+            const slabs = taxSlabs[year].individual[gender];
+            
+            let totalTax = 0;
+            let breakdown = [];
+            
+            for (let i = 0; i < slabs.length; i++) {
+                const slab = slabs[i];
+                const slabMin = slab.min;
+                const slabMax = slab.max === Infinity ? taxableIncome : Math.min(slab.max, taxableIncome);
+                
+                if (taxableIncome > slabMin) {
+                    const taxableInThisSlab = slabMax - slabMin;
+                    const taxInThisSlab = (taxableInThisSlab * slab.rate) / 100;
+                    
+                    if (taxableInThisSlab > 0) {
+                        totalTax += taxInThisSlab;
+                        breakdown.push({
+                            range: slab.max === Infinity ? 
+                                `Above ${slabMin.toLocaleString()}` : 
+                                `${slabMin.toLocaleString()} - ${slabMax.toLocaleString()}`,
+                            amount: taxableInThisSlab,
+                            rate: slab.rate,
+                            tax: taxInThisSlab
+                        });
+                    }
+                }
+                
+                if (taxableIncome <= slab.max) break;
+            }
+            
+            const netIncome = annualIncome - totalTax;
+            const effectiveRate = annualIncome > 0 ? (totalTax / annualIncome) * 100 : 0;
+            const amountDue = totalTax - previousTax;
+            
+            // Update results
+            document.getElementById('totalTax').textContent = `PKR ${Math.round(totalTax).toLocaleString()}`;
+            document.getElementById('netIncome').textContent = `PKR ${Math.round(netIncome).toLocaleString()}`;
+            document.getElementById('effectiveRate').textContent = `${effectiveRate.toFixed(2)}%`;
+            
+            const refundElement = document.getElementById('refundDue');
+            const refundLabel = document.getElementById('refundLabel');
+            
+            if (amountDue > 0) {
+                refundElement.textContent = `PKR ${Math.round(amountDue).toLocaleString()}`;
+                refundLabel.textContent = 'Additional Tax Due';
+                refundElement.parentElement.style.background = 'linear-gradient(135deg, #ff6b6b, #ee5a52)';
+            } else {
+                refundElement.textContent = `PKR ${Math.round(Math.abs(amountDue)).toLocaleString()}`;
+                refundLabel.textContent = 'Tax Refund Due';
+                refundElement.parentElement.style.background = 'linear-gradient(135deg, #51cf66, #40c057)';
+            }
+            
+            // Update breakdown table
+            const tableBody = document.getElementById('breakdownTable');
+            tableBody.innerHTML = '';
+            
+            breakdown.forEach(item => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${item.range}</td>
+                    <td>PKR ${Math.round(item.amount).toLocaleString()}</td>
+                    <td>${item.rate}%</td>
+                    <td>PKR ${Math.round(item.tax).toLocaleString()}</td>
+                `;
+            });
+            
+            // Add summary row
+            const summaryRow = tableBody.insertRow();
+            summaryRow.innerHTML = `
+                <td><strong>Total</strong></td>
+                <td><strong>PKR ${Math.round(taxableIncome).toLocaleString()}</strong></td>
+                <td><strong>-</strong></td>
+                <td><strong>PKR ${Math.round(totalTax).toLocaleString()}</strong></td>
+            `;
+            summaryRow.style.backgroundColor = '#f8f9fa';
+            summaryRow.style.fontWeight = 'bold';
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            displayTaxSlabs();
+            
+            document.getElementById('taxYear').addEventListener('change', displayTaxSlabs);
+            document.getElementById('gender').addEventListener('change', displayTaxSlabs);
+            
+            // Add input formatting
+            const numberInputs = ['annualIncome', 'deductions', 'previousTax'];
+            numberInputs.forEach(id => {
+                const input = document.getElementById(id);
+                input.addEventListener('input', function() {
+                    // Remove non-numeric characters except decimal point
+                    this.value = this.value.replace(/[^0-9.]/g, '');
+                });
+            });
+        });
+
+        // Add some interactive animations
+        document.querySelectorAll('.form-group input, .form-group select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
